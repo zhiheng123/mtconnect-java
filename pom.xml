@@ -10,12 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>mtconnect-client-api</module>
-        <module>mtconnect-client-impl</module>
-        <module>mtconnect-client-reactive</module>
-        <module>mtconnect-server-api</module>
-        <module>mtconnect-server-reactive</module>
-        <module>mtconnect-server-vertx</module>
+        <module>mtconnect-client</module>
+        <module>mtconnect-server</module>
     </modules>
 
     <properties>
@@ -24,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <src.dir>src/main/java</src.dir>
         <!-- dependency -->
-        <http-client-facade.version>0.0.1</http-client-facade.version>
+        <http-facade.version>0.0.2</http-facade.version>
         <junit.version>5.11.0</junit.version>
         <log4j.version>2.20.0</log4j.version>
         <lombok.version>1.18.34</lombok.version>
