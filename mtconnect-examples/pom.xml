@@ -15,12 +15,12 @@
         <dependency>
             <groupId>io.github.protocol-laboratory</groupId>
             <artifactId>mtconnect-client</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.protocol-laboratory</groupId>
             <artifactId>mtconnect-server</artifactId>
-            <version>${version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
