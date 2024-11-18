@@ -14,7 +14,9 @@ import java.util.Map;
  */
 public class MemoryMtProcessor implements MTProcessor {
 
-    Map<String, MTConnectAssets> mtConnectAssetsMap = new HashMap<>();
+    private final Map<String, MTConnectAssets> mtConnectAssetsMap = new HashMap<>();
+
+    private MTConnectDevices devices;
 
     @Override
     public MTConnectAssets asset(AssetRequest assetRequest) {
@@ -23,6 +25,10 @@ public class MemoryMtProcessor implements MTProcessor {
 
     @Override
     public MTConnectDevices device(DeviceRequest deviceRequest) {
-        return null;
+        return devices;
+    }
+
+    public void updateDevices(MTConnectDevices devices) {
+        this.devices = devices;
     }
 }
