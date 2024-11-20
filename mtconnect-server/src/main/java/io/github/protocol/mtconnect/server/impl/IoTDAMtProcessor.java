@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 public class IoTDAMtProcessor implements MTProcessor {
     private String ak;
     private String sk;
-    private String projectId;
     private String endpoint;
     private IoTDAClient client;
 
@@ -59,11 +58,6 @@ public class IoTDAMtProcessor implements MTProcessor {
         }
         public Builder setSk(String sk) {
             ioTDAMtProcessor.sk = sk;
-            return this;
-        }
-
-        public Builder setProjectId(String projectId) {
-            ioTDAMtProcessor.projectId = projectId;
             return this;
         }
 
