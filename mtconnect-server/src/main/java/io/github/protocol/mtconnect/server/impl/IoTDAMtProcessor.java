@@ -10,13 +10,17 @@ import com.huaweicloud.sdk.core.region.Region;
 import com.huaweicloud.sdk.iotda.v5.IoTDAClient;
 import com.huaweicloud.sdk.iotda.v5.model.ListDevicesRequest;
 import com.huaweicloud.sdk.iotda.v5.model.ListDevicesResponse;
+import com.huaweicloud.sdk.iotda.v5.model.QueryDeviceSimplify;
 import io.github.protocol.mtconnect.api.AssetRequest;
+import io.github.protocol.mtconnect.api.Device;
 import io.github.protocol.mtconnect.api.DeviceRequest;
 import io.github.protocol.mtconnect.api.MTConnectAssets;
 import io.github.protocol.mtconnect.api.MTConnectDevices;
 import io.github.protocol.mtconnect.server.MTProcessor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
 
 @Slf4j
 @NoArgsConstructor
@@ -31,11 +35,19 @@ public class IoTDAMtProcessor implements MTProcessor {
         return null;
     }
 
+    private Device convert2MTDevice(QueryDeviceSimplify deviceSimplify) {
+        Device device = new Device();
+        device.setId(deviceSimplify.getDeviceId());
+        device.setName(deviceSimplify.getDeviceName());
+        return device;
+    }
+
     @Override
     public MTConnectDevices device(DeviceRequest deviceRequest) {
         ListDevicesRequest request = new ListDevicesRequest();
+        ListDevicesResponse response = null;
         try {
-            ListDevicesResponse response = client.listDevices(request);
+            response = client.listDevices(request);
             log.info(response.toString());
         } catch (ConnectionException | RequestTimeoutException e) {
             log.error(e.getMessage());
@@ -45,8 +57,18 @@ public class IoTDAMtProcessor implements MTProcessor {
             log.error(e.getRequestId());
             log.error(e.getErrorCode());
             log.error(e.getErrorMsg());
+            return null;
         }
-        return null;
+
+        MTConnectDevices mtConnectDevices = new MTConnectDevices();
+        ArrayList<Device> devices = new ArrayList<>();
+        if (response != null) {
+            for (QueryDeviceSimplify deviceSimplify : response.getDevices()) {
+                devices.add(convert2MTDevice(deviceSimplify));
+            }
+        }
+        mtConnectDevices.setDevices(devices);
+        return mtConnectDevices;
     }
 
     public static class Builder {
